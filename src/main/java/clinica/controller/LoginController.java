@@ -1,13 +1,12 @@
 package clinica.controller;
 
-import java.sql.SQLException;
-
-import javax.swing.JOptionPane;
-
 import clinica.dao.UsuarioDao;
 import clinica.model.Usuario;
 import clinica.view.LoginFrame;
 import clinica.view.MainMenuFrame;
+
+import javax.swing.JOptionPane;
+import java.sql.SQLException;
 
 public class LoginController {
 private final LoginFrame view;
@@ -19,7 +18,7 @@ public LoginController(LoginFrame view) {
     init();
     }
 
-    private void init() {
+private void init() {
     view.btnEntrar.addActionListener(e -> onEntrar());
     view.getRootPane().setDefaultButton(view.btnEntrar);
     }
@@ -45,5 +44,5 @@ private void onEntrar() {
     } catch (SQLException ex) {
     JOptionPane.showMessageDialog(view, "Error de base de datos: " + ex.getMessage());
     }
-    }
+}
 }

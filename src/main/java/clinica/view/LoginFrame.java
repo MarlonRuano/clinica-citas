@@ -1,28 +1,21 @@
 package clinica.view;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
 
 public class LoginFrame extends JFrame {
 public final JTextField txtUser = new JTextField(14);
 public final JPasswordField txtPass = new JPasswordField(14);
 public final JButton btnEntrar = new JButton("Entrar");
 
-    public LoginFrame() {
+public LoginFrame() {
     super("Login");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    var panel = new JPanel(new GridBagLayout());
-    var gbc = new GridBagConstraints();
-    gbc.insets = new Insets(6,6,6,6);
+    JPanel panel = new JPanel(new GridBagLayout());
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(6, 6, 6, 6);
+
     gbc.gridx = 0; gbc.gridy = 0; gbc.anchor = GridBagConstraints.LINE_END;
     panel.add(new JLabel("Usuario:"), gbc);
 
