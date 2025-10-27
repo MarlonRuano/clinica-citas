@@ -1,10 +1,8 @@
 package clinica.controller;
-
 import clinica.dao.UsuarioDao;
 import clinica.model.Usuario;
 import clinica.view.LoginFrame;
 import clinica.view.MainMenuFrame;
-
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 
@@ -31,13 +29,16 @@ private void onEntrar() {
     JOptionPane.showMessageDialog(view, "Usuario y contraseña requeridos.");
     return;
     }
-
+ 
     try {
     Usuario user = usuarioDao.autenticar(u, p);
     if (user != null) {
         JOptionPane.showMessageDialog(view, "Bienvenido, " + user.getUsername());
-        view.dispose();
-        new MainMenuFrame().setVisible(true);
+    
+        // Mostrar primero el menú
+    MainMenuFrame menu = new MainMenuFrame();
+    menu.setVisible(true);
+    view.dispose();
     } else {
         JOptionPane.showMessageDialog(view, "Credenciales inválidas.");
     }
