@@ -8,7 +8,7 @@ public class Cita {
     private int pacienteId;
     private LocalDateTime fechaHora;
     private String motivo;
-    private String estado; // PROGRAMADA / ATENDIDA / CANCELADA
+    private String estado;
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

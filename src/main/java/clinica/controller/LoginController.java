@@ -29,13 +29,12 @@ private void onEntrar() {
     JOptionPane.showMessageDialog(view, "Usuario y contraseña requeridos.");
     return;
     }
- 
+
     try {
     Usuario user = usuarioDao.autenticar(u, p);
     if (user != null) {
         JOptionPane.showMessageDialog(view, "Bienvenido, " + user.getUsername());
-    
-        // Mostrar primero el menú
+
     MainMenuFrame menu = new MainMenuFrame();
     menu.setVisible(true);
     view.dispose();
