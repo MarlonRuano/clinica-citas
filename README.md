@@ -1,187 +1,68 @@
-Clínica Citas — Java Swing + MySQL (MVC/POO)
+# Proyecto Final: Clínica de Citas (clinica-citas) 🏥💻
 
-Organiza doctores, pacientes y citas médicas en una app de escritorio rápida y sencilla.
-Tecnologías: Java 17, Swing, MySQL 8, Maven.
+Aplicación de escritorio para gestionar Doctores, Pacientes y Citas médicas.
 
-Cambio clave: las credenciales de BD ya no están en el código.
-Ahora se leen desde app.properties (archivo externo al .jar, junto a él).
+Hecha con Java 17, Swing, MySQL 8 y Maven. Empaquetada en JAR ejecutable con configuración de conexión externalizada.
 
-🚀 Demo rápida (3 pasos)
+## ✨ Funcionalidades
 
-Crea la base e importa el esquema
+* **🔐 Login de demostración:** `admin` / `admin`.
+* **👨‍⚕️ CRUD de Doctores:** Gestión completa de médicos.
+* **🧑‍🤝‍🧑 CRUD de Pacientes:** Gestión completa de pacientes.
+* **🗓️ Citas:** Programar, reprogramar y cancelar citas.
+* **✅ Validaciones:** Campos requeridos, emails, etc.
+* **🌱 Semillas de datos:** Demo lista para usar al instante.
 
-Abre MySQL Workbench o tu cliente favorito.
+## 🧩 Requisitos
 
-Ejecuta el contenido de src/main/resources/sql/schema.sql.
+* **Java 17+** (ejecuta `java -version` para verificar).
+* **MySQL 8+** corriendo en `localhost:3306`.
+* **Cliente MySQL** (como Workbench) para ejecutar el script inicial.
 
-Configura credenciales sin recompilar
-Crea un archivo llamado app.properties (ver formato más abajo).
+## 🗃️ Base de datos (Paso 1: Crear y Sembrar)
 
-Si ejecutas con java -jar, coloca app.properties junto al .jar.
+Abre MySQL Workbench (o tu cliente) y ejecuta el script:
 
-Si ejecutas desde el IDE, colócalo en la carpeta raíz donde corres el programa.
+`src/main/resources/sql/schema.sql`
 
-Inicia la aplicación
+Esto creará la base de datos `clinica` y cargará los datos de demo (doctores, pacientes y el usuario admin).
 
-Desde IDE (desarrollo): Ejecuta clinica.Main (o tu clase Main).
+## ▶️ Cómo ejecutar (Paso 2: Configurar y Correr)
 
-Empaquetado: mvn -q -DskipTests clean package
-Luego: java -jar target/clinica-citas-0.1.0-with-deps.jar
+Para correr la aplicación, usa el paquete de "release" que contiene el `run.bat`, el `.jar` y el `app.properties` en la misma carpeta.
 
-Credenciales de prueba (si importaste el schema.sql tal como está):
+1.  **Configura la conexión:** Abre el archivo `app.properties` con cualquier editor de texto.
+2.  **Edita las credenciales:** Cambia el `db.user` y `db.pass` para que coincidan con tu configuración local de MySQL.
 
-Usuario: admin
-Contraseña: admin
-
-
-Si tu instalación usa hash distinto, revisa la tabla usuarios.
-
-🧰 Requisitos
-
-Java 17+
-
-Maven 3.8+
-
-MySQL 8+ en local o remoto
-
-⚙️ Configuración: app.properties
-
-Este archivo vive fuera del .jar y define cómo conectarse a MySQL:
-
-# app.properties
+```properties
 db.url=jdbc:mysql://localhost:3306/clinica?useSSL=false&serverTimezone=UTC
 db.user=root
-db.pass=
-
-
-Ubicación:
-
-Ejecución empaquetada: en la misma carpeta donde corres java -jar
-(ej. junto a clinica-citas-0.1.0-with-deps.jar).
-
-Ejecución en IDE: en el directorio de trabajo (la carpeta desde la que corres).
-
-Si cambias servidor, puerto o credenciales, solo editas este archivo.
-No recompiles Java para cambiar credenciales.
-
-🗄️ Base de datos (esquema + semillas)
-
-El archivo src/main/resources/sql/schema.sql:
-
-Crea las tablas usuarios, doctores, pacientes, citas.
-
-Agrega datos de demo (admin + 2 doctores + 2 pacientes + 1 cita), de forma idempotente (no duplica si ya existen).
-
-Crea índices básicos para citas(doctor_id) y citas(paciente_id).
-
-Si ya tenías la BD, puedes ejecutar solo las inserciones o revisar los INSERT … WHERE NOT EXISTS.
-
-▶️ Cómo ejecutar
-Opción A: Desarrollo (IDE / VS Code)
-
-Asegúrate de tener MySQL en ejecución y la BD clinica creada (importa schema.sql).
-
-Coloca app.properties en el directorio raíz desde donde arrancas el proyecto.
-
-Ejecuta la clase Main (por ejemplo, clinica.Main).
-
-Opción B: Empaquetado (JAR)
-
-Compila con dependencias incluidas:
-
-mvn -q -DskipTests clean package
-
-
-Esto genera: target/clinica-citas-0.1.0-with-deps.jar
-
-Copia app.properties junto al JAR.
-
+db.pass=AQUI_VA_TU_CONTRASENA_DE_MYSQL
 Ejecuta:
 
-java -jar clinica-citas-0.1.0-with-deps.jar
+Windows: Haz doble clic en run.bat.
 
+Mac/Linux: Abre una terminal y ejecuta java -jar clinica-citas-0.1.0-shaded.jar.
 
-(Opcional) Usa el run.bat incluido (ya imprime “Iniciando Clinica Citas…” y lanza el JAR).
+🔑 Acceso de prueba
+Una vez que la app inicie, usa las credenciales de demo:
 
-🧭 Estructura de carpetas
-clinica-citas/
-├─ src/
-│  └─ main/
-│     ├─ java/clinica/
-│     │  ├─ config/Db.java
-│     │  ├─ controller/ (Login, Pacientes, Doctores, Citas)
-│     │  ├─ dao/ (UsuarioDao, PacienteDao, DoctorDao, CitaDao)
-│     │  ├─ model/ (Usuario, Paciente, Doctor, Cita)
-│     │  └─ view/ (LoginFrame, MainMenuFrame, ...Frames)
-│     └─ resources/sql/schema.sql
-├─ docs/
-│  ├─ guia-instalacion/ (PDF/MD)
-│  ├─ manual-tecnico/ (PDF/MD)
-│  └─ diagrams/clases.md (Mermaid UML)
-├─ app.properties               # (se usa en ejecución local/IDE)
-├─ pom.xml
-├─ README.md
-└─ run.bat                      # (opcional para Windows)
+Usuario: admin
 
-✅ Funcionalidades actuales
+Contraseña: admin123
 
-Login (usuarios de tabla usuarios)
+🧪 Flujo de prueba recomendado (end-to-end)
+Login con admin/admin.
 
-Gestión de Doctores (CRUD básico, validaciones mínimas)
+Pacientes → verás María y Carlos. Prueba crear, editar y eliminar.
 
-Gestión de Pacientes (CRUD básico, validaciones mínimas)
+Doctores → verás Ana y Luis. Prueba el CRUD.
 
-Gestión de Citas (crear, reprogramar, cancelar; estados válidos: PROGRAMADA, ATENDIDA, CANCELADA)
+Citas → crea una cita PROGRAMADA, luego repográmala o cancélela.
 
-Persistencia MySQL mediante DAO, MVC con Swing
+🛠️ Solución de problemas
+"Error fatal: No se pudo leer 'app.properties'": El archivo .jar no encuentra el archivo de configuración. Asegúrate de que app.properties esté en la misma carpeta que el .jar.
 
-Configuración externa por app.properties (sin recompilar)
+"Access denied for user...": Usuario/clave de MySQL incorrectos. Revisa y corrige app.properties.
 
-🧪 Prueba sugerida (rápida)
-
-Iniciar app → Login con admin/admin
-
-Abrir Doctores → verificar 2 doctores de demo (Ana / Luis)
-
-Abrir Pacientes → verificar 2 pacientes (María / Carlos)
-
-Crear una cita nueva o reprogramar la de demo → estado PROGRAMADA
-
-Cambiar estado a ATENDIDA o CANCELADA y refrescar
-
-🆘 Troubleshooting (FAQ)
-
-Communications link failure
-MySQL no está levantado o db.url apunta a host/puerto incorrectos.
-
-Access denied for user …
-Usuario/clave en app.properties incorrectos o sin permisos.
-Prueba esas credenciales en MySQL Workbench.
-
-Unknown database 'clinica'
-Falta crear la base y/o ejecutar schema.sql.
-
-FileNotFoundException: app.properties
-El archivo no está en el directorio de ejecución.
-Al usar java -jar, debe estar junto al JAR.
-
-Login falla
-Verifica que exista un usuario en tabla usuarios.
-Si cambiaste política de hash, ajusta la contraseña en BD acorde.
-
-📚 Documentación
-
-Guía de instalación: docs/guia-instalacion/
-
-Manual técnico: docs/manual-tecnico/
-
-Diagrama de clases (Mermaid): docs/diagrams/clases.md
-
-📦 Build reproducible
-
-El pom.xml incluye el maven-shade-plugin para generar un fat-jar (*-with-deps.jar).
-Esto asegura que tu profesor/compañero puedan ejecutar sin configurar el classpath.
-
-📝 Licencia / Créditos
-
-Proyecto académico. Uso educativo.
+"Communications link failure": MySQL está apagado o la URL es incorrecta. Revisa que MySQL esté corriendo y que db.url en app.properties sea correcto.
