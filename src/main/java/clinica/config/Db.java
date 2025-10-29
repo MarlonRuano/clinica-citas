@@ -1,20 +1,19 @@
 package clinica.config;
-import java.util.Properties;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.IOException;
-import javax.swing.JOptionPane;
-
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
+
+import javax.swing.JOptionPane;
 
 public class Db {
 
     private static String URL;
     private static String USER;
     private static String PASS;
-
     static {
         Properties props = new Properties();
         
